@@ -10,23 +10,23 @@
 #' @param source Path to file or connection
 #' @param Verbose Whether to write a message to console on failure (Default F)
 #' @return character value corresponding to standard file extension of 
-#'   image format (i.e. jpg, png, bmp)
+#'   image format (i.e. jpg, png, bmp) or NA_character_ on failure.
 #' @export
 image_type<-function(source,Verbose=FALSE){
   if (inherits(source, "connection")) 
     seek(source, 0)
   magic = readBin(source, what = 0L, n = 8, size = 1L, signed = FALSE)
   if(isTRUE(all.equal(magic[1:2], c(66, 77))))
-		return('bmp')
-	else if(isTRUE(all.equal(magic[1:8], 
-			          c(0x89,0x50,0x4E,0x47,0x0D, 0x0A, 0x1A, 0x0A))) )
-		return('png')
-	else if(isTRUE(all.equal(magic[1:2], c(0xFF, 0xD8))))
-		return('jpg')
-	# otherwise we failed to identify the file
-	if(Verbose) warning("Failed to identify image type of: ",source,
-		        ' with magic: ',format.hexmode(as.raw(magic)))
-	return(NA)
+    return('bmp')
+  else if(isTRUE(all.equal(magic[1:8], 
+          c(0x89,0x50,0x4E,0x47,0x0D, 0x0A, 0x1A, 0x0A))) )
+    return('png')
+  else if(isTRUE(all.equal(magic[1:2], c(0xFF, 0xD8))))
+    return('jpg')
+  # otherwise we failed to identify the file
+  if(Verbose) warning("Failed to identify image type of: ",source,
+        ' with magic: ',format.hexmode(as.raw(magic)))
+  return(NA_character_)
 }
 
 #' Read in a bitmap image in JPEG, PNG or BMP format
@@ -43,22 +43,17 @@ image_type<-function(source,Verbose=FALSE){
 #' @seealso \code{\link[jpeg]{readJPEG},\link[png]{readPNG},\link[bmp]{read.bmp}}
 read.bitmap<-function(f,channel,IdentifyByExtension=FALSE,...){
   
-	if(!file.exists(f)) stop("File: ",f," does not exist.")
-	
+  if(!file.exists(f)) stop("File: ",f," does not exist.")
+  
   if(IdentifyByExtension) 
     ext=tolower(sub(".*\\.([^.]+)$","\\1",f))
   else
     ext=image_type(f)
   
-	if(ext=='png'){
-		im=readPNG(f,...)
-	} else if (ext == 'jpeg' || ext == 'jpg'){
-		im=readJPEG(f,...)
-	} else if (ext == 'bmp'){
-		im=read.bmp(f,...)
-	} else {
-		stop("File f: ",f," does not appear to be a PNG, BMP or JPEG")
-	}
-	if(!missing(channel) && length(dim(im))==3) im=im[,,channel]
-	im
+  readfun=switch(ext,png=readPNG,jpeg=readJPEG,jpg=readJPEG,bmp=read.bmp,
+      stop("File f: ",f," does not appear to be a PNG, BMP or JPEG"))
+  im=readfun(f,...)
+  
+  if(!missing(channel) && length(dim(im))==3) im=im[,,channel]
+  im
 }
