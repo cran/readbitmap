@@ -7,12 +7,12 @@ Description: Identifies and reads Windows BMP, JPEG and PNG format bitmap
     images. Identification defaults to the use of a magic embedded in the file
     rather than the file extension. jpeg and png packages depend on libjpg and
     libpng libraries but these are nearly always present on unix-like systems.
-Version: 0.1-1
-Date: 2013-08-09
+Version: 0.1-2
+Date: 2013-09-27
 Depends: bmp, jpeg, png
 Suggests: pixmap, testthat
 Collate: 'read-any-bitmap.R'
-Packaged: 2013-08-09 22:51:23 UTC; jefferis
+Packaged: 2013-09-27 16:06:36 UTC; jefferis
 NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2013-08-10 01:01:15
+Date/Publication: 2013-09-28 22:18:16

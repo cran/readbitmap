@@ -1,8 +1,8 @@
-985504fc654dd3b3386c594685e42fef *DESCRIPTION
+b2513a63212cc17fcfd13834414e8c45 *DESCRIPTION
 9d8f9c09636fa5789adf3474983f3fd8 *NAMESPACE
-ee24c7ff47d904efdcc9a0d0dacd5a62 *NEWS
+7a3bff7bc2aa80b20cecd3e15d20185c *NEWS
 9df01be6bbc5ac1bd9d4fae2f5c255da *R/read-any-bitmap.R
-0f438ab76f16d1ca425e905dd3607f6c *README.md
+0b3a7a98662d20f4f3d14454bb7d1d68 *README.md
 d0d5d6e560e2f829b4fe13b6a927351b *inst/images/bmp-pretending-to-be.jpg
 7d0c3c2510547d6fbb26797b2b541a17 *inst/images/png-pretending-to-be.bmp
 b0788b5110bf5ef879c55fef51873007 *inst/images/real.bmp
