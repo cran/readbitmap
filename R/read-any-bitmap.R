@@ -12,6 +12,13 @@
 #' @return character value corresponding to standard file extension of 
 #'   image format (i.e. jpg, png, bmp) or NA_character_ on failure.
 #' @export
+#' @examples
+#' jpegfile=system.file("img", "Rlogo.jpg", package="jpeg")
+#' image_type(jpegfile)
+#' jpeg_pretending_to_be_png=tempfile(fileext = '.png')
+#' file.copy(jpegfile, jpeg_pretending_to_be_png)
+#' image_type(jpeg_pretending_to_be_png)
+#' unlink(jpeg_pretending_to_be_png)
 image_type<-function(source,Verbose=FALSE){
   if (inherits(source, "connection")) 
     seek(source, 0)
@@ -39,8 +46,17 @@ image_type<-function(source,Verbose=FALSE){
 #' @param IdentifyByExtension Identify by file extension only (Default FALSE)
 #' @param ... Additional parameters passed to underlying image readers
 #' @return return value
+#' @importFrom png readPNG
+#' @importFrom jpeg readJPEG
+#' @importFrom bmp read.bmp
 #' @export
 #' @seealso \code{\link[jpeg]{readJPEG},\link[png]{readPNG},\link[bmp]{read.bmp}}
+#' @examples
+#' img1=read.bitmap(system.file("img", "Rlogo.jpg", package="jpeg"))
+#' str(img1)
+#' img2 <- read.bitmap(system.file("img", "Rlogo.png", package="png"))
+#' # nb the PNG image has an alpha channel
+#' str(img2)
 read.bitmap<-function(f,channel,IdentifyByExtension=FALSE,...){
   
   if(!file.exists(f)) stop("File: ",f," does not exist.")

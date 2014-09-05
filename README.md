@@ -1,5 +1,7 @@
 Introduction
 ============
+[![Build Status](https://travis-ci.org/jefferis/readbitmap.svg)](https://travis-ci.org/jefferis/readbitmap)
+
   * Simple R package to read bitmap images
   * Currently supports BMP, JPEG and PNG images
   * ... via [bmp](http://cran.r-project.org/web/packages/bmp/), [jpeg](http://cran.r-project.org/web/packages/jpeg/) and [png](http://cran.r-project.org/web/packages/png/) packages. 
@@ -11,19 +13,36 @@ Installation
 ============
 Regular CRAN Install
 --------------------
-    install.packages('readbitmap')
+```r
+install.packages('readbitmap')
+```
 
 Latest Version
 --------------
-    install.packages('devtools')
-    library(devtools)
-    install_github('readbitmap','jefferis')
+```r
+if (!require("devtools")) install.packages("devtools")
+devtools::install_github('readbitmap','jefferis')
+```
 
 Dependencies
 ------------
-[jpeg](http://cran.r-project.org/web/packages/jpeg/) and [png](http://cran.r-project.org/web/packages/png/) packages depend on system libjpeg and libpng libraries. 
-These are normally installed on unix like systems (e.g. linux, macosx). 
-For Windows, Simon Urbanek provides library binaries at:
+The [jpeg](http://cran.r-project.org/web/packages/jpeg/) and 
+[png](http://cran.r-project.org/web/packages/png/) R packages depend on system
+libjpeg and libpng libraries.  These are pretty much always installed on unix
+like systems (e.g. linux, macosx). Failing that, see:
 
-  * http://www.rforge.net/jpeg/files/
-  * http://www.rforge.net/png/files/
+  * http://www.libpng.org/
+  * http://ijg.org/
+
+For Windows, binary installs of the jpeg and png packages include the libjpeg
+and lipng available on winbuilder and therefore no system library is required.
+The winbuilder libraries are part of a collection provied by Brian Ripley at:
+
+  http://www.stats.ox.ac.uk/pub/Rtools/goodies/multilib/
+
+file local300.zip. 
+
+For windows users building from source, the libraries are part of the Rtools
+bundle available at:
+
+  http://cran.r-project.org/bin/windows/Rtools/
